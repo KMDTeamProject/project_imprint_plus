@@ -1,35 +1,41 @@
 package imprintplus.data;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 
 /**
  * Class LongitudinalTable
  */
 public class LongitudinalTable {
-	
+
+	/*
+	 * Meta Data
+	 */
 	protected String name_att_id;
 	protected String name_att_label;
 	protected String name_att_timepoint;
-	protected List<String> list_atts_ignored;
-	protected List<String> list_atts_all;
-	protected List<String> list_atts_regular;
-	protected Class DATA;
+	protected Collection<String> list_atts_ignored;
+	protected Collection<String> list_atts_all;
+	protected Collection<String> list_atts_regular;
+
+	@Deprecated
+	protected Collection<LongitudinalObject> DATA;
+
+	/** Map of LongitudinalObject stored wrt their ids */
 	protected Map<String, LongitudinalObject> long_objs;
 
 	/**
-	 * Creates a LongitudinalTable from the provided data.
-	 * The data that must be supplied to the constructor includes
-	 * - name of id, label, and timepoint attributes
-	 * - list of attributes to be ignored (if any)
-	 * - name/location of data source from where to read the data
+	 * Creates a LongitudinalTable from the provided data. The data that must be
+	 * supplied to the constructor includes - name of id, label, and timepoint
+	 * attributes - list of attributes to be ignored (if any) - name/location of
+	 * data source from where to read the data
 	 */
 	public LongitudinalTable() {
-		/* TODO Make the constructor protected
-		 * and create the object using a public
-		 * static method.
+		/*
+		 * TODO Make the constructor protected and create the object using a
+		 * public static method.
 		 */
-		
+
 		// TODO Implement the method
 	};
 
@@ -38,7 +44,7 @@ public class LongitudinalTable {
 	 * 
 	 * @return the value of name_att_id
 	 */
-	public String getId() {
+	public String getAttId() {
 		return name_att_id;
 	}
 
@@ -47,7 +53,7 @@ public class LongitudinalTable {
 	 * 
 	 * @return the value of name_att_label
 	 */
-	public String getLabel() {
+	public String getAttLabel() {
 		return name_att_label;
 	}
 
@@ -56,7 +62,7 @@ public class LongitudinalTable {
 	 * 
 	 * @return the value of name_att_timepoint
 	 */
-	public String getTimepoint() {
+	public String getAttTimepoint() {
 		return name_att_timepoint;
 	}
 
@@ -65,7 +71,7 @@ public class LongitudinalTable {
 	 * 
 	 * @return the value of list_atts_ignored
 	 */
-	public List<String> getIgnoredAtts() {
+	public Collection<String> getIgnoredAtts() {
 		return list_atts_ignored;
 	}
 
@@ -74,29 +80,27 @@ public class LongitudinalTable {
 	 * 
 	 * @return the value of list_atts_all
 	 */
-	public List<String> getAllAtts() {
+	public Collection<String> getAllAtts() {
 		return list_atts_all;
 	}
 
 	/**
-	 * Get the list of attributes that are to be
-	 * used in the learning.
+	 * Get the list of attributes that are to be used in the learning.
 	 * 
 	 * @return the value of LIST_REGULAR_ATTS
 	 */
-	public List<String> getRegularAtts() {
+	public Collection<String> getRegularAtts() {
 		return list_atts_regular;
 	}
 
-	/**   
-	 * This function reads the data from the provided
-	 * data source. Currently implement to read data
-	 * only from CSV format.
+	/**
+	 * This function reads the data from the provided data source. Currently
+	 * implement to read data only from CSV format.
 	 */
 	protected void readData() {
 		// TODO Implement the method
 	}
-	
+
 	/**
 	 */
 	protected void constructLongitudinalObjects() {
@@ -104,13 +108,21 @@ public class LongitudinalTable {
 	}
 
 	/**
-	 * Returns the number of LongitudinalObject stored
-	 * inside the table.
+	 * Returns the number of LongitudinalObject stored inside the table.
 	 */
 	public int getSize() {
 		return long_objs.size();
 	}
 
+	/**
+	 * Returns a collection of the ids of LongitudinalObjects.
+	 * 
+	 * @return Collection<String>
+	 */
+	public Collection<String> getIds() {
+		return long_objs.keySet();
+	}
+	
 	/**
 	 * Returns the LongitudinalObject with the supplied id.
 	 * 
@@ -128,13 +140,13 @@ public class LongitudinalTable {
 		return null;
 	}
 
+	
 	/**
-	 * @return 
+	 * @return
 	 */
 	public Map<String, LongitudinalObject> getBootstrapSampleOfPatients() {
 		return null;
 		// TODO Implement the method
 	}
-
 
 }
