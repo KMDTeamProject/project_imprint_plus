@@ -4,11 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class ExperimentInfo
  * This class stores the information on all the parameters
  * that are in use during an experiment.
+ * 
+ * @author siddiqui16
  */
-public class ExperimentInfo {
+public class Parameters {
 	public static final String PARAM_EXP_NAME      = "exp_name";
 	public static final String PARAM_RUNS          = "runs";
 	public static final String PARAM_SAMPLE_RATIO  = "sampleRatio";
@@ -28,7 +29,7 @@ public class ExperimentInfo {
 	 * The constructor should be kept hidden. The object creation
 	 * should be done via a static method.
 	 */
-	protected ExperimentInfo() {
+	protected Parameters() {
 		param_vals = new HashMap<String, String>();
 		initDefaults();
 	};
