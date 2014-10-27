@@ -8,7 +8,7 @@ import junit.framework.TestCase;
  * TODO: Implement this class before implementing
  * the functionalities in LongitudinalObject.
  * 
- * @author siddiqui
+ * @author siddiqui16
  */
 public class UnitTest_LongitudinalObject extends TestCase {
 
