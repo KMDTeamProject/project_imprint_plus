@@ -1,5 +1,6 @@
 package imprintplus.data;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class LongitudinalObject {
@@ -9,10 +10,13 @@ public class LongitudinalObject {
 	Map<Integer, String> labels;
 	Map<Integer, String> clusters;
 	
-	boolean isControl;
+	boolean isControl = false;
 	
-	public LongitudinalObject() {
-		// TODO Auto-generated constructor stub
+	public LongitudinalObject(String _id) {
+		id = _id;
+		instances = new HashMap<Integer, Double[]>();
+		labels = new HashMap<Integer, String>();
+		clusters = new HashMap<Integer, String>();
 	}
 	
 	/**
