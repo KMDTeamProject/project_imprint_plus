@@ -38,12 +38,12 @@ public class Parameters {
 	public static final String PARAM_DEFAULT_DATA_REL_PATH = "./data";
 	public static final String PARAM_DEFAULT_CSV_SEP = ",";
 
-	/** Stores <param,val> pairs as String. */
+	/** Stores <param, val> pairs as String. */
 	Map<String, String> param_vals;
 
 	/**
-	 * The constructor should be kept hidden. The object creation should be
-	 * done via second constructor.
+	 * The constructor should be kept hidden. The object creation should be done
+	 * via second constructor.
 	 */
 	protected Parameters() {
 		param_vals = new HashMap<String, String>();
@@ -61,11 +61,12 @@ public class Parameters {
 	/**
 	 * This reads the parameter and returns the value of the parameter as
 	 * String.
-	 * 
-	 * TODO: What happens if a parameter with the provided name doesn't
-	 * exist? Implement the test case for the implementation.
 	 */
-	public String getParamValAsString(String _param) {
+	public String getParamValAsString(String _param) throws ImprintParamMissing {
+		if (!param_vals.containsKey(_param)) {
+			String msg = "ParameterMissing: " + _param;
+			throw new ImprintParamMissing(msg);
+		}
 		return param_vals.get(_param);
 	}
 
@@ -73,53 +74,90 @@ public class Parameters {
 	 * This reads the parameter and returns the value of the parameter as
 	 * Integer.
 	 * 
-	 * TODO: What happens if a parameter with the provided name doesn't
-	 * exist? Implement the test case for the implementation.
-	 * 
-	 * TODO: What happens if value can't be type-casted as Integer?
-	 * Implement the test case.
+	 * @throws ImprintParamMissing
+	 *             , ImprintParamIllegalValue
 	 */
-	public Integer getParamValAsInteger(String _param) {
-		return Integer.valueOf(param_vals.get(_param));
+	public Integer getParamValAsInteger(String _param)
+			throws ImprintParamMissing, ImprintParamIllegalValue {
+		if (!param_vals.containsKey(_param)) {
+			String msg = "ParameterMissing: " + _param;
+			throw new ImprintParamMissing(msg);
+		}
+
+		Integer val = Integer.MIN_VALUE;
+		try {
+			val = Integer.valueOf(param_vals.get(_param));
+		} catch (NumberFormatException e) {
+			String msg = "Illegal value for Param <" + _param + "> = "
+					+ param_vals.get(_param) + " can't be casted as Integer.";
+			throw new ImprintParamIllegalValue(msg);
+		}
+		return val;
 	}
 
 	/**
 	 * This reads the parameter and returns the value of the parameter as
 	 * Double.
 	 * 
-	 * TODO: What happens if a parameter with the provided name doesn't
-	 * exist? Implement the test case for the implementation.
-	 * 
-	 * TODO: What happens if value can't be type-casted as Double? Implement
-	 * the test case.
+	 * @throws ImprintParamMissing
+	 *             , ImprintParamIllegalValue
 	 */
-	public Double getParamValAsDouble(String _param) {
-		return Double.valueOf(param_vals.get(_param));
+	public Double getParamValAsDouble(String _param)
+			throws ImprintParamMissing, ImprintParamIllegalValue {
+		if (!param_vals.containsKey(_param)) {
+			String msg = "ParameterMissing: " + _param;
+			throw new ImprintParamMissing(msg);
+		}
+
+		Double val = Double.MIN_VALUE;
+		try {
+			val = Double.valueOf(param_vals.get(_param));
+		} catch (NumberFormatException e) {
+			String msg = "Illegal value for Param <" + _param + "> = "
+					+ param_vals.get(_param) + " can't be casted as Integer.";
+			throw new ImprintParamIllegalValue(msg);
+		}
+		return val;
 	}
 
 	/**
 	 * This reads the parameter and returns the value of the parameter as
 	 * Boolean.
 	 * 
-	 * TODO: What happens if a parameter with the provided name doesn't
-	 * exist? Implement the test case for the implementation.
-	 * 
-	 * TODO: What happens if value can't be type-casted as Boolean?
-	 * Implement the test case.
+	 * @throws ImprintParamMissing
+	 *             , ImprintParamIllegalValue
 	 */
-	public Boolean getParamValAsBoolean(String _param) {
-		return Boolean.valueOf(param_vals.get(_param));
+	public Boolean getParamValAsBoolean(String _param)
+			throws ImprintParamMissing, ImprintParamIllegalValue,
+			ImprintParamMissing {
+		if (!param_vals.containsKey(_param)) {
+			String msg = "ParameterMissing: " + _param;
+			throw new ImprintParamMissing(msg);
+		}
+
+		Boolean val = Boolean.FALSE;
+		try {
+			val = Boolean.valueOf(param_vals.get(_param));
+		} catch (NumberFormatException e) {
+			String msg = "Illegal value for Param <" + _param + "> = "
+					+ param_vals.get(_param) + " can't be casted as Integer.";
+			throw new ImprintParamIllegalValue(msg);
+		}
+		return val;
 	}
 
 	/**
 	 * This reads the parameter and returns the value of the parameter as a
-	 * list. The individual values in the parameter must be separate by a
-	 * comma.
+	 * list. The individual values in the parameter must be separate by a comma.
 	 * 
-	 * TODO: What happens if a parameter with the provided name doesn't
-	 * exist? Implement the test case for the implementation.
+	 * @throws ImprintParamMissing
 	 */
-	public ArrayList<String> getParamValAsArrayList(String _param) {
+	public ArrayList<String> getParamValAsArrayList(String _param)
+			throws ImprintParamMissing {
+		if (!param_vals.containsKey(_param)) {
+			String msg = "ParameterMissing: " + _param;
+			throw new ImprintParamMissing(msg);
+		}
 		String vals = param_vals.get(_param);
 		ArrayList<String> val_list = new ArrayList<String>();
 		Collections.addAll(val_list, vals.split(Commons.PARAM_LIST_SEP));
@@ -138,32 +176,30 @@ public class Parameters {
 	}
 
 	/**
-	 * Reads the paramters and their values from the provided file and
-	 * stores them in param->val Map.
+	 * Reads the parameters and their values from the provided file and stores
+	 * them in param->val Map.
 	 * 
 	 * @throws ImprintDataFileException
 	 */
-	protected void readFromFile(File _file)
-			throws ImprintParamFileException {
+	protected void readFromFile(File _file) throws ImprintParamFileException {
 		BufferedReader br = null;
 		String line = null;
 		try {
 			br = new BufferedReader(new FileReader(_file));
 			while ((line = br.readLine()) != null) {
-				// If line starts with a comment character, then
-				// ignore the line
+				/* If line starts with a comment character, then ignore the line */
 				if (!line.startsWith(Commons.PARAM_LINE_COMMENT)) {
-					String[] vals = line
-							.split(Commons.PARAM_VALUE_SEP);
+					String[] vals = line.split(Commons.PARAM_VALUE_SEP);
 
-					// Make sure that each line is the form
-					// of key-value pair
+					/* Make sure that each line is the form of key-value pair */
 					if (vals.length != 2)
-						System.err.print("\n"
-								+ "WARNING: Invalid parameter info @ line <"
-								+ line
-								+ "> in file "
-								+ _file.getAbsolutePath());
+						System.err
+								.print("\n"
+										+ "WARNING: Invalid parameter info @ line <"
+										+ line + "> in file "
+										+ _file.getAbsolutePath());
+
+					/* If all is ok, add the param and its value to the map. */
 					String name = vals[0];
 					String value = vals[2];
 					param_vals.put(name, value);

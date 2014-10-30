@@ -12,8 +12,8 @@ public class MultipleExperiments {
 	// pass
 
 	/**
-	 * Reflective function used for handling incomplete input specification
-	 * for reading experiment information.
+	 * Reflective function used for handling incomplete input specification for
+	 * reading experiment information.
 	 * 
 	 * @param _expRelDir
 	 * @return
@@ -26,11 +26,10 @@ public class MultipleExperiments {
 	 * Returns a collection of Experiment objects from the provided files.
 	 * Experiments information are contained in text files. By default, the
 	 * information on experiment are stored under
-	 * <Commons.PATH_DEFAULT_EXPERIMENT> in separate text files. The
-	 * location of the experiments file can also be provided via _expRelDir,
-	 * however, this path must be relative to the default. If a list of
-	 * files <_expFilenames> is not provided, it reads all the files in the
-	 * folder.
+	 * <Commons.PATH_DEFAULT_EXPERIMENT> in separate text files. The location of
+	 * the experiments file can also be provided via _expRelDir, however, this
+	 * path must be relative to the default. If a list of files <_expFilenames>
+	 * is not provided, it reads all the files in the folder.
 	 * 
 	 * @param _expRelDir
 	 * @param _expFilenames
