@@ -42,8 +42,8 @@ public class Parameters {
 	Map<String, String> param_vals;
 
 	/**
-	 * The constructor should be kept hidden. The object creation should be done
-	 * via second constructor.
+	 * The constructor should be kept hidden. The object creation should be
+	 * done via second constructor.
 	 */
 	protected Parameters() {
 		param_vals = new HashMap<String, String>();
@@ -62,8 +62,8 @@ public class Parameters {
 	 * This reads the parameter and returns the value of the parameter as
 	 * String.
 	 * 
-	 * TODO: What happens if a parameter with the provided name doesn't exist?
-	 * Implement the test case for the implementation.
+	 * TODO: What happens if a parameter with the provided name doesn't
+	 * exist? Implement the test case for the implementation.
 	 */
 	public String getParamValAsString(String _param) {
 		return param_vals.get(_param);
@@ -73,11 +73,11 @@ public class Parameters {
 	 * This reads the parameter and returns the value of the parameter as
 	 * Integer.
 	 * 
-	 * TODO: What happens if a parameter with the provided name doesn't exist?
-	 * Implement the test case for the implementation.
+	 * TODO: What happens if a parameter with the provided name doesn't
+	 * exist? Implement the test case for the implementation.
 	 * 
-	 * TODO: What happens if value can't be type-casted as Integer? Implement
-	 * the test case.
+	 * TODO: What happens if value can't be type-casted as Integer?
+	 * Implement the test case.
 	 */
 	public Integer getParamValAsInteger(String _param) {
 		return Integer.valueOf(param_vals.get(_param));
@@ -87,11 +87,11 @@ public class Parameters {
 	 * This reads the parameter and returns the value of the parameter as
 	 * Double.
 	 * 
-	 * TODO: What happens if a parameter with the provided name doesn't exist?
-	 * Implement the test case for the implementation.
+	 * TODO: What happens if a parameter with the provided name doesn't
+	 * exist? Implement the test case for the implementation.
 	 * 
-	 * TODO: What happens if value can't be type-casted as Double? Implement the
-	 * test case.
+	 * TODO: What happens if value can't be type-casted as Double? Implement
+	 * the test case.
 	 */
 	public Double getParamValAsDouble(String _param) {
 		return Double.valueOf(param_vals.get(_param));
@@ -101,11 +101,11 @@ public class Parameters {
 	 * This reads the parameter and returns the value of the parameter as
 	 * Boolean.
 	 * 
-	 * TODO: What happens if a parameter with the provided name doesn't exist?
-	 * Implement the test case for the implementation.
+	 * TODO: What happens if a parameter with the provided name doesn't
+	 * exist? Implement the test case for the implementation.
 	 * 
-	 * TODO: What happens if value can't be type-casted as Boolean? Implement
-	 * the test case.
+	 * TODO: What happens if value can't be type-casted as Boolean?
+	 * Implement the test case.
 	 */
 	public Boolean getParamValAsBoolean(String _param) {
 		return Boolean.valueOf(param_vals.get(_param));
@@ -113,10 +113,11 @@ public class Parameters {
 
 	/**
 	 * This reads the parameter and returns the value of the parameter as a
-	 * list. The individual values in the parameter must be separate by a comma.
+	 * list. The individual values in the parameter must be separate by a
+	 * comma.
 	 * 
-	 * TODO: What happens if a parameter with the provided name doesn't exist?
-	 * Implement the test case for the implementation.
+	 * TODO: What happens if a parameter with the provided name doesn't
+	 * exist? Implement the test case for the implementation.
 	 */
 	public ArrayList<String> getParamValAsArrayList(String _param) {
 		String vals = param_vals.get(_param);
@@ -137,28 +138,32 @@ public class Parameters {
 	}
 
 	/**
-	 * Reads the paramters and their values from the provided file and stores
-	 * them in param->val Map.
+	 * Reads the paramters and their values from the provided file and
+	 * stores them in param->val Map.
 	 * 
 	 * @throws ImprintDataFileException
 	 */
-	protected void readFromFile(File _file) throws ImprintParamFileException {
+	protected void readFromFile(File _file)
+			throws ImprintParamFileException {
 		BufferedReader br = null;
 		String line = null;
 		try {
 			br = new BufferedReader(new FileReader(_file));
 			while ((line = br.readLine()) != null) {
-				// If line starts with a comment character, then ignore the line
+				// If line starts with a comment character, then
+				// ignore the line
 				if (!line.startsWith(Commons.PARAM_LINE_COMMENT)) {
-					String[] vals = line.split(Commons.PARAM_VALUE_SEP);
+					String[] vals = line
+							.split(Commons.PARAM_VALUE_SEP);
 
-					// Make sure that each line is the form of key-value pair
+					// Make sure that each line is the form
+					// of key-value pair
 					if (vals.length != 2)
-						System.err
-								.print("\n"
-										+ "WARNING: Invalid parameter info @ line <"
-										+ line + "> in file "
-										+ _file.getAbsolutePath());
+						System.err.print("\n"
+								+ "WARNING: Invalid parameter info @ line <"
+								+ line
+								+ "> in file "
+								+ _file.getAbsolutePath());
 					String name = vals[0];
 					String value = vals[2];
 					param_vals.put(name, value);
