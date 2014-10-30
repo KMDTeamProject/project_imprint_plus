@@ -20,8 +20,8 @@ public class LongitudinalObject {
 	}
 
 	/**
-	 * Returns if the method is control or not. This is relevant for some of
-	 * the methods.
+	 * Returns if the method is control or not. This is relevant for some of the
+	 * methods.
 	 * 
 	 * @return
 	 */
@@ -69,8 +69,8 @@ public class LongitudinalObject {
 	}
 
 	/**
-	 * Returns the cluster id of the object based the membership of the
-	 * instance for the given timepoint
+	 * Returns the cluster id of the object based the membership of the instance
+	 * for the given timepoint
 	 * 
 	 * @return cluster
 	 */
