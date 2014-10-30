@@ -201,7 +201,8 @@ public class LongitudinalTable {
 						curr_long.addLabel(val_label, val_timepoint);
 
 					} catch (NumberFormatException e) {
-						String exp_msg = "A value for regular att or timepoint att can't be parsed to a number in line "
+						String exp_msg = "A value for regular att or timepoint "
+								+ "att can't be parsed to a number in line "
 								+ line_no + " '" + line + "'";
 						throw new ImprintDataFileException(exp_msg);
 					}
