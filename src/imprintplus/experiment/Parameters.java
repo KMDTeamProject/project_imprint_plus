@@ -1,5 +1,8 @@
 package imprintplus.experiment;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,15 +15,16 @@ import java.util.Map;
 public class Parameters {
 	public static final String PARAM_EXP_NAME      = "exp_name";
 	public static final String PARAM_RUNS          = "runs";
-	public static final String PARAM_SAMPLE_RATIO  = "sampleRatio";
+	public static final String PARAM_SAMPLE_RATIO  = "sample_ratio";
 	public static final String PARAM_DUPLICATES    = "duplicates";
 	public static final String PARAM_K             = "K";
-	public static final String PARAM_DATA_REL_PATH = "dataRelPath";
-	public static final String PARAM_DATA_FILE     = "dataFile";
+	public static final String PARAM_DATA_REL_PATH = "data_rel_path";
+	public static final String PARAM_DATA_FILENAME = "data_filename";
 	public static final String PARAM_ATT_ID        = "att_id";
 	public static final String PARAM_ATT_LABEL     = "att_label";
 	public static final String PARAM_ATT_TIMEPOINT = "att_timepoint";
 	public static final String PARAM_IGNORE_LIST   = "ignore_list";
+	public static final String PARAM_CSV_SEP       = "csv_separator";
 
 	/** Stores <param,val> pairs as String. */
 	Map<String, String> param_vals;
@@ -94,7 +98,23 @@ public class Parameters {
 	}
 	
 	/**
-	 * Initialises the default values of the mandatory parameters.
+	 * This reads the parameter and returns the value of the
+	 * parameter as a list. The individual values in the parameter
+	 * must be separate by a comma.
+	 * 
+	 * TODO: 
+	 * What happens if a parameter with the provided name 
+	 * doesn't exist? Implement the test case for the implementation.
+	 */
+	public ArrayList<String> getParamValAsArrayList(String _param) {
+		String vals = param_vals.get(_param);
+		ArrayList<String> val_list = new ArrayList<String>();
+		Collections.addAll(val_list, vals.split(Commons.LIST_SEP));
+		return val_list;
+	}
+	
+	/**
+	 * Initializes the default values of the mandatory parameters.
 	 */
 	protected void initDefaults() {
 		param_vals.put(PARAM_RUNS, "1");
