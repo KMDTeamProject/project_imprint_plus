@@ -3,7 +3,6 @@ package imprintplus.data;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * 
  * @author siddiqui16
@@ -81,5 +80,13 @@ public class LongitudinalObject {
 	 */
 	public String getCluster(int _timepoint) {
 		return clusters.get(_timepoint);
+	}
+
+	/**
+	 * 
+	 */
+	public LongitudinalObject clone() {
+		// TODO Implementation
+		return null;
 	}
 }

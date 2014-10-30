@@ -274,6 +274,8 @@ public class LongitudinalTable {
 	/**
 	 * Returns the LongitudinalObject with the supplied id.
 	 * 
+	 * TODO: what if the provided _id doesn't exist?
+	 * 
 	 * @return LongitudinalObject
 	 */
 	public LongitudinalObject getTBIObject(String _id) {
