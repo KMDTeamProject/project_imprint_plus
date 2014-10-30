@@ -1,5 +1,10 @@
 package imprintplus.experiment;
 
+/**
+ * 
+ * 
+ * @author siddiqui16
+ */
 public class Commons {
 	public static final String PATH_DEFAULT_DATA = "./data";
 	public static final String PATH_DEFAULT_EXPERIMENT = "./exp";

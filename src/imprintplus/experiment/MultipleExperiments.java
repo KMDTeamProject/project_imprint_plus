@@ -2,6 +2,11 @@ package imprintplus.experiment;
 
 import java.util.Collection;
 
+/**
+ * 
+ * 
+ * @author siddiqui16
+ */
 public class MultipleExperiments {
 	// ''' Runs an experiment based on the expObj. The results are stored in
 	// text

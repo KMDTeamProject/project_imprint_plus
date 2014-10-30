@@ -2,6 +2,10 @@ package imprintplus.method.labelprediction;
 
 import imprintplus.data.LongitudinalObject;
 
+/**
+ * 
+ * @author siddiqui16
+ */
 public abstract class AbstractUnitary implements InterfacePredictor{
 
 	@Override

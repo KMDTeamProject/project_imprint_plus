@@ -3,6 +3,11 @@ package imprintplus.data;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * 
+ * @author siddiqui16
+ */
 public class LongitudinalObject {
 
 	String id;

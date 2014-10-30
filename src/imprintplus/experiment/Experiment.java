@@ -1,5 +1,9 @@
 package imprintplus.experiment;
 
+/**
+ * 
+ * @author siddiqui16
+ */
 public class Experiment {
 	Parameters params;
 
