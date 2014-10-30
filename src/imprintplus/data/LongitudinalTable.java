@@ -16,18 +16,35 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Class LongitudinalTable
+ * LongitudinalTable stores the data in the form of LongitudinalObjects.
+ * This class also comes with the functionality to read data from a csv file.
+ * 
+ * TODO: See if the data read functionality can be transfered to a separate
+ * reader class.
+ * 
+ * @author siddiqui16
  */
 public class LongitudinalTable {
-	/*
-	 * Meta Data
-	 */
+
+	/** Complete path of the data file. */
 	protected String data_filepath;
+
+	/** Name of the attribute to used as identifier. */
 	protected String name_att_id;
+	
+	/** Name of the attribute to used as label. */
 	protected String name_att_label;
+	
+	/** Name of the attribute to used as timepoint. */
 	protected String name_att_timepoint;
-	protected ArrayList<String> list_atts_ignored;
+	
+	/** List of attributes in the data file. */
 	protected ArrayList<String> list_atts_all;
+	
+	/** List of attributes that are to be ignored. */
+	protected ArrayList<String> list_atts_ignored;
+	
+	/** List of attributes that are used for learning. */
 	protected ArrayList<String> list_atts_regular;
 
 	/** Map of LongitudinalObject stored wrt their ids */
@@ -119,16 +136,14 @@ public class LongitudinalTable {
 			String line = null;
 			int line_no = 0;
 			while ((line = br.readLine()) != null) {
-				/* Read the attribute names from the header */
+				// Read the attribute names from the header.
 				if (line_no == 0) {
 					list_atts_all = new ArrayList<String>();
 					for (String att : line.split(_val_sep))
 						list_atts_all.add(att);
 
-					/*
-					 * Removes all the ignored atts, id, label, and timepoint in
-					 * order to create a list of regular atts.
-					 */
+					// Removes all the ignored atts, id, label, and timepoint in
+					// order to create a list of regular atts.
 					Set<String> set_reg = new HashSet<String>();
 					set_reg.addAll(list_atts_all);
 					set_reg.removeAll(list_atts_ignored);
@@ -146,21 +161,17 @@ public class LongitudinalTable {
 						throw new ImprintDataFileException(exp_msg);
 					}
 
-					/* Read all vals into an att val Map */
+					// Read all vals into an att val Map
 					Map<String, String> att_val_map = new HashMap<String, String>();
 					for (int i = 0; i < vals.length; i++)
 						att_val_map.put(list_atts_all.get(i), vals[i]);
 
-					/*
-					 * Converting a String into a number can generate an
-					 * exception if string doesn't represent a number.
-					 */
+					// Converting a String into a number can generate an
+					// exception if string doesn't represent a number.
 					try {
 
-						/*
-						 * Create a Double array for storing the values of all
-						 * the regular attributes
-						 */
+						// Create a Double array for storing the values of all
+						// the regular attributes
 						Double[] vals_reg = new Double[list_atts_regular.size()];
 						for (int i = 0; i < list_atts_regular.size(); i++) {
 							String att_name = list_atts_regular.get(i);
@@ -168,28 +179,24 @@ public class LongitudinalTable {
 									.get(att_name));
 						}
 
-						/*
-						 * Extract the meta info on the LongitudinalObject from
-						 * att_val_map
-						 */
+						// Extract the meta info on the LongitudinalObject from
+						// att_val_map
 						String val_id = att_val_map.get(name_att_id);
 						String val_label = att_val_map.get(name_att_label);
 						int val_timepoint = Integer.valueOf(att_val_map
 								.get(name_att_timepoint));
 
-						/*
-						 * Get the relevant LongitudinalObject from the map of
-						 * LongitudinalObjects. If the object doesn't exist in
-						 * the map, create a new object with the desired id and
-						 * add it to the map.
-						 */
+						// Get the relevant LongitudinalObject from the map of
+						// LongitudinalObjects. If the object doesn't exist in
+						// the map, create a new object with the desired id and
+						// add it to the map.
 						LongitudinalObject curr_long = long_objs.get(val_id);
 						if (curr_long == null) {
 							curr_long = new LongitudinalObject(val_id);
 							long_objs.put(val_id, curr_long);
 						}
 
-						/* Add the instance and label the LongitudinalObject */
+						// Add the instance and label the LongitudinalObject
 						curr_long.addInstance(vals_reg, val_timepoint);
 						curr_long.addLabel(val_label, val_timepoint);
 
