@@ -41,6 +41,9 @@ public class Parameters {
 	/** Path of the parameter file. */
 	String info;
 
+	/** Name of the experiment. */
+	String exp_name;
+
 	/** Stores <param, val> pairs as String. */
 	Map<String, String> param_vals;
 
@@ -176,9 +179,21 @@ public class Parameters {
 	}
 
 	/**
+	 * Every experiment must have a name. This is useful when writing the output
+	 * of the experiment to the disk
+	 */
+	public String getExperimentName() {
+		return exp_name;
+	}
+
+	/**
 	 * Initializes the default values of the mandatory parameters.
+	 * 
+	 * It also sets a default experiment name.
 	 */
 	protected void initDefaults() {
+		exp_name = "Experiment_" + System.currentTimeMillis();
+		param_vals.put(PARAM_EXP_NAME, exp_name);
 		param_vals.put(PARAM_RUNS, PARAM_DEFAULT_RUNS);
 		param_vals.put(PARAM_SAMPLE_RATIO, PARAM_DEFAULT_SAMPLE_RATIO);
 		param_vals.put(PARAM_DUPLICATES, PARAM_DEFAULT_DUPLICATES);
