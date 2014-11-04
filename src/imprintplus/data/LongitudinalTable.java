@@ -66,11 +66,9 @@ public class LongitudinalTable {
 		name_att_label = _att_label;
 		name_att_timepoint = _att_timepoint;
 		list_atts_ignored = _ignore_list;
-
 		long_objs = new HashMap<String, LongitudinalObject>();
-
 		this.readDataIntoTable(_val_sep);
-	};
+	}
 
 	/**
 	 * Get the name of id attribute
