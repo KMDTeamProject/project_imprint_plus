@@ -38,6 +38,9 @@ public class Parameters {
 	public static final String PARAM_DEFAULT_DATA_REL_PATH = "./data";
 	public static final String PARAM_DEFAULT_CSV_SEP = ",";
 
+	/** Path of the parameter file. */
+	String info;
+
 	/** Stores <param, val> pairs as String. */
 	Map<String, String> param_vals;
 
@@ -50,11 +53,19 @@ public class Parameters {
 		initDefaults();
 	}
 
+	public Parameters(Map<String, String> _param_vals) {
+		this();
+		info = "read from provided Map of <param,val>";
+		for (String key : _param_vals.keySet())
+			param_vals.put(key, _param_vals.get(key));
+	}
+
 	/**
 	 * Read parameters from the provided File and create Parameter Objects
 	 */
 	public Parameters(File _file) throws ImprintParamFileException {
 		this();
+		info = "read from " + _file.getAbsolutePath();
 		this.readFromFile(_file);
 	}
 
@@ -221,5 +232,16 @@ public class Parameters {
 					e.printStackTrace();
 				}
 		}
+	}
+
+	public String toString() {
+		String str = "";
+		try {
+			str += getParamValAsString(PARAM_EXP_NAME);
+		} catch (ImprintParamMissing e) {
+			str += "Unknown";
+		}
+		str += "  [" + info + "]";
+		return str;
 	}
 }

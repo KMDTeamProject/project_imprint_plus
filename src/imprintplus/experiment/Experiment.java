@@ -7,15 +7,18 @@ package imprintplus.experiment;
 public class Experiment {
 	Parameters params;
 
-	public Experiment() {
-		// TODO Auto-generated constructor stub
+	public Experiment(Parameters _param) {
+		params = _param;
 	}
-
+	
 	/**
 	 * Executes the experiment from the provided ExperimentInfo object.
+	 * @throws ImprintExpException 
 	 */
-	public void execute() {
-		// TODO Auto-generated constructor stub
+	public void execute() throws ImprintExpException {
+		System.out.print("\n" + this.toString());
+		if (true)
+			throw new ImprintExpException("Not Experiment.execute() is not implemented.");
 	}
 
 	// ''' Initialises the experiment. It is also responsible for reading
@@ -119,4 +122,9 @@ public class Experiment {
 	// fW.write(xId + ',' + ','.join(vals) + os.linesep)
 	//
 	// print '%s: duration=%f'%(expName, duration)
+
+	public String toString() {
+		String str = "Exp: " + params.toString();
+		return str;
+	}
 }
