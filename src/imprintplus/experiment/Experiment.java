@@ -1,59 +1,79 @@
 package imprintplus.experiment;
 
+import java.io.File;
+
+import imprintplus.data.ImprintDataException;
+import imprintplus.data.LongitudinalTable;
+
 /**
  * 
  * @author siddiqui16
  */
 public class Experiment {
-	Parameters params;
 
+	Parameters params;
+	LongitudinalTable long_table;
+	String exp_results_path;
+
+	/**
+	 * Initializes the experiment from the provided {@link Parameters} object.
+	 * 
+	 * @param _param
+	 */
 	public Experiment(Parameters _param) {
 		params = _param;
 	}
-	
-	/**
-	 * Executes the experiment from the provided ExperimentInfo object.
-	 * @throws ImprintExpException 
-	 */
-	public void execute() throws ImprintExpException {
-		System.out.print("\n" + this.toString());
-		if (true)
-			throw new ImprintExpException("Not Experiment.execute() is not implemented.");
+
+	private void preExecute() throws ImprintDataException, ImprintParamMissing,
+			ImprintResultException {
+		System.out.print("\nExecuting " + this.toString());
+		long_table = LongitudinalTable.createTableFromParameters(params);
+		createResultsDirectory();
 	}
 
-	// ''' Initialises the experiment. It is also responsible for reading
+	/**
+	 * Executes the experiment.
+	 * 
+	 * Reads the data into a {@link LongitudinalTable}. Executes the desired
+	 * method as indicate in {@link Parameters} object.
+	 * 
+	 * @throws ImprintExpException
+	 */
+	public void execute() throws ImprintExpException {
+		this.preExecute();
+
+		// TODO Implementation
+		if (true)
+			throw new ImprintExpException(
+					"Not Experiment.execute() is not implemented.");
+	}
+
+	/**
+	 * Creates the results' directory.
+	 * 
+	 * @throws ImprintResultException
+	 */
+	private void createResultsDirectory() throws ImprintResultException {
+		boolean pathExists = true;
+		String results_path = Commons.PATH_DEFAULT_RESULT;
+		exp_results_path = results_path + "/" + params.getExperimentName();
+
+		File dir = new File(exp_results_path);
+		if (!dir.exists())
+			pathExists = dir.mkdirs();
+
+		if (!pathExists) {
+			String msg = "Cannot create results dir " + exp_results_path + ".";
+			throw new ImprintResultException(msg);
+		}
+	}
+
 	// the
 	// the data and creating samples of data that are then dissemated to the
 	// EvolutionaryPredictor via creating of multiple child processes. '''
 	// class Experiment():
-	// def __init__(self, _expInfo):
-	// self.__expInfo = _expInfo
-	// #------------------------ Initialise raw data handler for the
-	// experiment
-	// self.__dataHandler = RawDataHandler()
-	// attId = self.__expInfo.getParamVal(PARAM_ATT_ID)
-	// attLabel = self.__expInfo.getParamVal(PARAM_ATT_LABEL)
-	// attTimepoint = self.__expInfo.getParamVal(PARAM_ATT_TIMEPOINT)
-	// ignoreList = self.__expInfo.getParamVal(PARAM_IGNORE_LIST)
-	// dataFilename = self.__expInfo.getParamVal(PARAM_DATA_FILE)
-	// dataRelPath = self.__expInfo.getParamVal(PARAM_DATA_REL_PATH)
-	// if len(dataRelPath)>0:
-	// dataFilename = dataRelPath + os.path.sep + dataFilename
-	// dataFilepath = PATH_FOLDER_DATA + os.path.sep + dataFilename
-	//
-	// #-------------------------------------- Read data from the provided
-	// file
-	// self.__dataHandler.readData(dataFilepath, _ignore=ignoreList, \
-	// _id=attId, _label=attLabel, _timepoint=attTimepoint)
 	//
 	// #--------------------------------------- Create directory for the
-	// output
-	// relResultDir = self.__expInfo.getParamVal(PARAM_NAME)
-	// oldpath = os.getcwd()
-	// os.chdir(PATH_FOLDER_RESULT)
-	// if not os.path.exists(relResultDir):
-	// os.mkdir(relResultDir)
-	// os.chdir(oldpath)
 	//
 	// def execute(self):
 	// start_time = timeit.default_timer()
