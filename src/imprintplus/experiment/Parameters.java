@@ -179,7 +179,7 @@ public class Parameters {
 	 * Reads the parameters and their values from the provided file and stores
 	 * them in param->val Map.
 	 * 
-	 * @throws ImprintDataFileException
+	 * @throws ImprintDataException
 	 */
 	protected void readFromFile(File _file) throws ImprintParamFileException {
 		BufferedReader br = null;

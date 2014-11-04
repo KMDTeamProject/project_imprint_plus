@@ -60,12 +60,14 @@ public class LongitudinalTable {
 	protected LongitudinalTable(String _data_filepath, String _att_id,
 			String _att_label, String _att_timepoint,
 			ArrayList<String> _ignore_list, String _val_sep)
-			throws ImprintDataFileException {
+			throws ImprintDataException {
 		data_filepath = _data_filepath;
 		name_att_id = _att_id;
 		name_att_label = _att_label;
 		name_att_timepoint = _att_timepoint;
 		list_atts_ignored = _ignore_list;
+
+		long_objs = new HashMap<String, LongitudinalObject>();
 
 		this.readDataIntoTable(_val_sep);
 	};
@@ -129,7 +131,7 @@ public class LongitudinalTable {
 	 * implement to read data only from CSV format.
 	 */
 	protected void readDataIntoTable(String _val_sep)
-			throws ImprintDataFileException {
+			throws ImprintDataException {
 		File data_file = new java.io.File(data_filepath);
 		BufferedReader br = null;
 		try {
@@ -154,6 +156,20 @@ public class LongitudinalTable {
 					set_reg.remove(this.name_att_label);
 					set_reg.remove(this.name_att_timepoint);
 					list_atts_regular = new ArrayList<String>(set_reg);
+
+					/*
+					 * Check if the names of att_id, att_label, att_timepoint,
+					 * ignore_list exists in the attributes read from data file
+					 */
+					if (!list_atts_all.contains(name_att_id)
+							|| !list_atts_all.contains(name_att_label)
+							|| !list_atts_all.contains(name_att_timepoint)
+							|| !list_atts_all.containsAll(list_atts_ignored)) {
+						String msg = "One of the provided attributes "
+								+ "do not match with the attributes read "
+								+ "from data file.";
+						throw new ImprintDataException(msg);
+					}
 				} else {
 					String vals[] = line.split(_val_sep);
 
@@ -161,7 +177,7 @@ public class LongitudinalTable {
 					if (vals.length != list_atts_all.size()) {
 						String exp_msg = "Number of vals at line " + line_no
 								+ "doesn't match the number of attributes.";
-						throw new ImprintDataFileException(exp_msg);
+						throw new ImprintDataException(exp_msg);
 					}
 
 					/*
@@ -219,7 +235,7 @@ public class LongitudinalTable {
 						String exp_msg = "A value for regular att or timepoint "
 								+ "att can't be parsed to a number in line "
 								+ line_no + " '" + line + "'";
-						throw new ImprintDataFileException(exp_msg);
+						throw new ImprintDataException(exp_msg);
 					}
 				}
 				line_no++;
@@ -227,10 +243,10 @@ public class LongitudinalTable {
 		} catch (FileNotFoundException e) {
 			String exp_msg = data_filepath
 					+ ": Data file or path doesn't exist.";
-			throw new ImprintDataFileException(exp_msg);
+			throw new ImprintDataException(exp_msg);
 		} catch (IOException e) {
 			String exp_msg = data_filepath + ": Cannot read from file.";
-			throw new ImprintDataFileException(exp_msg);
+			throw new ImprintDataException(exp_msg);
 		} finally {
 			if (br != null)
 				try {
@@ -267,18 +283,24 @@ public class LongitudinalTable {
 	 * 
 	 * @return Collection<String>
 	 */
-	public Collection<String> getIds() {
+	public Set<String> getIds() {
 		return long_objs.keySet();
 	}
 
 	/**
 	 * Returns the LongitudinalObject with the supplied id.
 	 * 
-	 * TODO: what if the provided _id doesn't exist?
-	 * 
 	 * @return LongitudinalObject
+	 * @throws ImprintDataException
 	 */
-	public LongitudinalObject getTBIObject(String _id) {
+	public LongitudinalObject getTBIObject(String _id)
+			throws ImprintDataException {
+		/* Throws a missing object exception if _id doesn't exist */
+		if (!long_objs.containsKey(_id)) {
+			String msg = "Longitudinal Object with id =" + _id
+					+ " doesn't exist.";
+			throw new ImprintDataException(msg);
+		}
 		return long_objs.get(_id);
 	}
 
@@ -291,7 +313,10 @@ public class LongitudinalTable {
 	}
 
 	/**
-	 * Create a sample of LongitudinalObject stored in the table
+	 * Create a sample of LongitudinalObject stored in the table.
+	 * 
+	 * TODO: A better option would be to generate a new LongitudinalTable
+	 * instead of returning a Map.
 	 * 
 	 * @return a Map of LongitudinalObject with key as their id
 	 */
@@ -309,7 +334,7 @@ public class LongitudinalTable {
 	 * @throws ImprintParamMissing
 	 */
 	public static LongitudinalTable createTableFromParameters(Parameters _params)
-			throws ImprintDataFileException, ImprintParamMissing {
+			throws ImprintDataException, ImprintParamMissing {
 		/* Construct the correct path to the data file */
 		String dataPath = Commons.PATH_DEFAULT_DATA;
 		String dataRelPath = _params
@@ -351,7 +376,7 @@ public class LongitudinalTable {
 	public static LongitudinalTable createTableFromCSV(String _data_filepath,
 			String _att_id, String _att_label, String _att_timepoint,
 			ArrayList<String> _ignore_list, String _val_sep)
-			throws ImprintDataFileException {
+			throws ImprintDataException {
 		LongitudinalTable table = null;
 		table = new LongitudinalTable(_data_filepath, _att_id, _att_label,
 				_att_timepoint, _ignore_list, _val_sep);
