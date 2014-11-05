@@ -32,7 +32,7 @@ public abstract class AbstractComposite implements InterfacePredictor {
 	 * @param _objs
 	 * @return
 	 */
-	public Map<String, String> predict(Map<String, LongitudinalObject> _objs) {
+	public Map<String, String> predict(Map<String, LongitudinalObject> _objs) throws ImprintMethodMissingDataException {
 		Map<String, String> predicted = new HashMap<String, String>();
 		for (String id : _objs.keySet()) {
 			LongitudinalObject obj = _objs.get(id);

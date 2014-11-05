@@ -14,6 +14,6 @@ public abstract class AbstractUnitary implements InterfacePredictor{
 	 * is provided to them, they learn the model on the fly and do the 
 	 * prediction. The learning is also encapsulated inside this method. 
 	 */
-	public abstract String predict(LongitudinalObject _obj);
+	public abstract String predict(LongitudinalObject _obj) throws ImprintMethodMissingDataException;
 
 }
