@@ -41,9 +41,6 @@ public class Parameters {
 	/** Path of the parameter file. */
 	String info;
 
-	/** Name of the experiment. */
-	String exp_name;
-
 	/** Stores <param, val> pairs as String. */
 	Map<String, String> param_vals;
 
@@ -183,7 +180,7 @@ public class Parameters {
 	 * of the experiment to the disk
 	 */
 	public String getExperimentName() {
-		return exp_name;
+		return param_vals.get(PARAM_EXP_NAME);
 	}
 
 	/**
@@ -192,7 +189,7 @@ public class Parameters {
 	 * It also sets a default experiment name.
 	 */
 	protected void initDefaults() {
-		exp_name = "Experiment_" + System.currentTimeMillis();
+		String exp_name = "Experiment_" + System.currentTimeMillis();
 		param_vals.put(PARAM_EXP_NAME, exp_name);
 		param_vals.put(PARAM_RUNS, PARAM_DEFAULT_RUNS);
 		param_vals.put(PARAM_SAMPLE_RATIO, PARAM_DEFAULT_SAMPLE_RATIO);
@@ -227,7 +224,7 @@ public class Parameters {
 
 					/* If all is ok, add the param and its value to the map. */
 					String name = vals[0];
-					String value = vals[2];
+					String value = vals[1];
 					param_vals.put(name, value);
 				}
 			}
@@ -248,14 +245,22 @@ public class Parameters {
 				}
 		}
 	}
+	
+	/**
+	 * Returns parameters as a string of key value pairs.
+	 * 
+	 * @return
+	 */
+	public String getParamsAsString() {
+		String str = "";
+		for (String key:param_vals.keySet())
+			str += key + ":" + param_vals.get(key) + "; ";
+		return str;
+	}
 
 	public String toString() {
 		String str = "";
-		try {
-			str += getParamValAsString(PARAM_EXP_NAME);
-		} catch (ImprintParamMissing e) {
-			str += "Unknown";
-		}
+		str += param_vals.get(PARAM_EXP_NAME);
 		str += "  [" + info + "]";
 		return str;
 	}
