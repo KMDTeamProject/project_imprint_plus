@@ -7,5 +7,5 @@ import imprintplus.data.LongitudinalObject;
  * @author siddiqui16
  */
 public interface InterfacePredictor {
-	public String predict(LongitudinalObject _obj);
+	public String predict(LongitudinalObject _obj) throws ImprintMethodMissingDataException;
 }

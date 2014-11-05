@@ -38,6 +38,12 @@ public class Parameters {
 	public static final String PARAM_DEFAULT_DATA_REL_PATH = "./data";
 	public static final String PARAM_DEFAULT_CSV_SEP = ",";
 
+	/** Path of the parameter file. */
+	String info;
+
+	/** Name of the experiment. */
+	String exp_name;
+
 	/** Stores <param, val> pairs as String. */
 	Map<String, String> param_vals;
 
@@ -50,11 +56,19 @@ public class Parameters {
 		initDefaults();
 	}
 
+	public Parameters(Map<String, String> _param_vals) {
+		this();
+		info = "read from provided Map of <param,val>";
+		for (String key : _param_vals.keySet())
+			param_vals.put(key, _param_vals.get(key));
+	}
+
 	/**
 	 * Read parameters from the provided File and create Parameter Objects
 	 */
 	public Parameters(File _file) throws ImprintParamFileException {
 		this();
+		info = "read from " + _file.getAbsolutePath();
 		this.readFromFile(_file);
 	}
 
@@ -165,9 +179,21 @@ public class Parameters {
 	}
 
 	/**
+	 * Every experiment must have a name. This is useful when writing the output
+	 * of the experiment to the disk
+	 */
+	public String getExperimentName() {
+		return exp_name;
+	}
+
+	/**
 	 * Initializes the default values of the mandatory parameters.
+	 * 
+	 * It also sets a default experiment name.
 	 */
 	protected void initDefaults() {
+		exp_name = "Experiment_" + System.currentTimeMillis();
+		param_vals.put(PARAM_EXP_NAME, exp_name);
 		param_vals.put(PARAM_RUNS, PARAM_DEFAULT_RUNS);
 		param_vals.put(PARAM_SAMPLE_RATIO, PARAM_DEFAULT_SAMPLE_RATIO);
 		param_vals.put(PARAM_DUPLICATES, PARAM_DEFAULT_DUPLICATES);
@@ -179,7 +205,7 @@ public class Parameters {
 	 * Reads the parameters and their values from the provided file and stores
 	 * them in param->val Map.
 	 * 
-	 * @throws ImprintDataFileException
+	 * @throws ImprintDataException
 	 */
 	protected void readFromFile(File _file) throws ImprintParamFileException {
 		BufferedReader br = null;
@@ -221,5 +247,16 @@ public class Parameters {
 					e.printStackTrace();
 				}
 		}
+	}
+
+	public String toString() {
+		String str = "";
+		try {
+			str += getParamValAsString(PARAM_EXP_NAME);
+		} catch (ImprintParamMissing e) {
+			str += "Unknown";
+		}
+		str += "  [" + info + "]";
+		return str;
 	}
 }

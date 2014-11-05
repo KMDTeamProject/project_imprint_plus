@@ -1,0 +1,9 @@
+# This file declares the methods that are available to the imprint_plus tool.
+# The format of method declaration is as follows:
+# -----------------------------------------------------------------------------
+# <name>,<full_package_name>,<class_name>,<method_type>
+# -----------------------------------------------------------------------------
+#            <method_type> = 1; for unitary   label prediction method 
+#            <method_type> = 2; for composite label prediction method
+# -----------------------------------------------------------------------------
+UnitaryDummy,imprintplus.method.labelprediction,UnitaryDummy,1

@@ -6,6 +6,7 @@ package imprintplus.experiment;
  * @author siddiqui16
  */
 public class ImprintParamFileException extends ImprintExpException {
+	
 	private static final long serialVersionUID = 1L;
 
 	public ImprintParamFileException(String _msg) {

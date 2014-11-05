@@ -1,7 +1,10 @@
 package imprintplus.data;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 
@@ -32,6 +35,15 @@ public class LongitudinalObject {
 	public boolean isControl() {
 		return isControl;
 	}
+	
+	/**
+	 * Returns the id of the {@link LongitudinalObject}
+	 * 
+	 * @return id
+	 */
+	public String getId() {
+		return id;
+	}
 
 	/**
 	 * Adds the provided instance to the Map with timepoint as the key.
@@ -57,7 +69,7 @@ public class LongitudinalObject {
 	}
 
 	/**
-	 * Returns the label of the object at the given timpoint
+	 * Returns the label of the object at the given timepoint
 	 * 
 	 * @return label
 	 */
@@ -82,6 +94,35 @@ public class LongitudinalObject {
 		return clusters.get(_timepoint);
 	}
 
+	/**
+	 * Generate a series from the given map. For example one can use it to
+	 * generate either a cluster-series or a label-series.
+	 */
+	protected ArrayList<String> getSeriesFromMap(Map<Integer, String> _map) {
+		ArrayList<String> series = new ArrayList<String>();
+		ArrayList<Integer> timepoints = new ArrayList<Integer>();
+		timepoints.addAll(_map.keySet());
+		Collections.sort(timepoints);
+		for (Integer t : timepoints)
+			series.add(_map.get(t));
+		return series;
+
+	}
+
+	/**
+	 * Generates a label-series.
+	 */
+	public ArrayList<String> getLabelSeries() {
+		return getSeriesFromMap(labels);
+	}
+
+	/**
+	 * Generates a cluster-series.
+	 */
+	public ArrayList<String> getClusterSeries() {
+		return getSeriesFromMap(clusters);
+	}
+	
 	/**
 	 * 
 	 */

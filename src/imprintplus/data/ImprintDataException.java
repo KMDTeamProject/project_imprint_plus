@@ -7,10 +7,10 @@ import imprintplus.experiment.ImprintExpException;
  * 
  * @author siddiqui16
  */
-public class ImprintDataFileException extends ImprintExpException {
+public class ImprintDataException extends ImprintExpException {
 	private static final long serialVersionUID = 1L;
 
-	public ImprintDataFileException(String _msg) {
+	public ImprintDataException(String _msg) {
 		super(_msg);
 	}
 }
