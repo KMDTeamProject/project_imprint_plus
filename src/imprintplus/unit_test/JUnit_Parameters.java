@@ -3,6 +3,7 @@ package imprintplus.unit_test;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import imprintplus.experiment.Commons;
 import imprintplus.experiment.ImprintParamIllegalValue;
@@ -168,17 +169,84 @@ public class JUnit_Parameters {
 
 	@Test
 	public void testGetParamValAsBoolean() {
-		fail("Not yet implemented");
+		try {
+			boolean exp_duplicates = true;
+			boolean obs_duplicates = test_params.getParamValAsBoolean(Parameters.PARAM_DUPLICATES);
+			
+			assertEquals("Incorrect value for sample ratio.", exp_duplicates, obs_duplicates);
+		} catch (Exception e) {
+			System.out.println(e);
+			fail("Unexpected exception");
+		}
+		
+		try {
+			test_params.getParamValAsBoolean("unknown parameter");
+			fail("An exception was expected.");
+		} catch (ImprintParamMissing e) {
+			assertTrue(true);
+		} catch (ImprintParamIllegalValue e) {
+			fail("Incorrect Exception.");
+		}
+		
+		try {
+			test_params.getParamValAsBoolean("exp name");
+			fail("An exception was expected.");
+		} catch (ImprintParamMissing e) {
+			assertTrue(true);
+		} catch (ImprintParamIllegalValue e) {
+			fail("Incorrect Exception.");
+		}
+		
+		try {
+			test_params.getParamValAsBoolean("duplicates");
+			assertTrue(true);
+		} catch (ImprintParamMissing e) {
+			fail("Unexpected Exception.");
+		} catch (ImprintParamIllegalValue e) {
+			fail("Unexpected Exception.");
+		}
 	}
 
 	@Test
 	public void testGetParamValAsArrayList() {
-		fail("Not yet implemented");
+		try {
+			ArrayList<String> exp_ignore = new ArrayList<String>();
+			exp_ignore.add("ig1");
+			ArrayList<String> obs_ignored = test_params.getParamValAsArrayList(Parameters.PARAM_IGNORE_LIST);
+			
+			assertEquals("Ignore attribute list do not match.", exp_ignore, obs_ignored);
+		} catch (Exception e) {
+			System.out.println(e);
+			fail("Unexpected exception");
+		}
+		
+		try {
+			test_params.getParamValAsArrayList("unknown list");
+			fail("An exception was expected.");
+		} catch (ImprintParamMissing e) {
+			assertTrue(true);
+		}
+		
+		try {
+			test_params.getParamValAsArrayList("exp name");
+			fail("An exception was expected.");
+		} catch (ImprintParamMissing e) {
+			assertTrue(true);
+		}
+		
+		try {
+			test_params.getParamValAsArrayList("duplicates");
+			assertTrue(true);
+		} catch (ImprintParamMissing e) {
+			fail("Unexpected Exception.");
+		}
 	}
 
 	@Test
 	public void testGetExperimentName() {
-		fail("Not yet implemented");
+		String exp_experiment_name = "Junit_Test1";
+		String obs_experiment_name = test_params.getExperimentName();
+		assertEquals("Incorrect experiment name.", exp_experiment_name, obs_experiment_name);
 	}
 
 }
