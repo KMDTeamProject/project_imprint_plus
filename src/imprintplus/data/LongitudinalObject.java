@@ -4,17 +4,29 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
+ * Stores the information for an object that exists/appears across multiple
+ * timepoints. The object itself is identified using its identifier, while its
+ * individual instances/occurrences are identified using the timepoints at which
+ * it appears. Additionally, each of its occurrences may also be associated with
+ * a label that is stored separately and also identified using its timepoints.
+ * 
  * 
  * @author siddiqui16
  */
 public class LongitudinalObject {
 
+	/** Identifier of a longitudinal object */
 	String id;
+
+	/** Map of instances stored wrt. timepoints */
 	Map<Integer, Double[]> instances;
+
+	/** Map of labels stored wrt. timepoints */
 	Map<Integer, String> labels;
+
+	/** Map of cluster membership stored wrt. timepoints */
 	Map<Integer, String> clusters;
 
 	boolean isControl = false;
@@ -35,7 +47,7 @@ public class LongitudinalObject {
 	public boolean isControl() {
 		return isControl;
 	}
-	
+
 	/**
 	 * Returns the id of the {@link LongitudinalObject}
 	 * 
@@ -122,7 +134,7 @@ public class LongitudinalObject {
 	public ArrayList<String> getClusterSeries() {
 		return getSeriesFromMap(clusters);
 	}
-	
+
 	/**
 	 * 
 	 */
