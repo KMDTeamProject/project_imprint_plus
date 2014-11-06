@@ -1,7 +1,7 @@
 exp_name:Junit_Test1
 runs:100
 sample_ratio:0.555
-duplicates:FALSE
+duplicates:TRUE
 K:4
 data_rel_path:junit
 data_filename:junit_longitudinaltable_test1.csv
