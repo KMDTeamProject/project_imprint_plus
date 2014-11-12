@@ -1,10 +1,5 @@
 package imprintplus.method.model;
 
-public class AbstractModel {
-
-}
-package imprintplus.method.model;
-
 /**
  * 
  * @author Sandhya

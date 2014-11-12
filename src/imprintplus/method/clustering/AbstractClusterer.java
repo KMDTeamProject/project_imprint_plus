@@ -1,8 +1,8 @@
-package imprintplus.method.clustering;
+//package imprintplus.method.clustering;
 
-public class AbstractClusterer {
+//public class AbstractClusterer {
 
-}
+//}
 package imprintplus.method.clustering;
 
 /**

@@ -1,8 +1,4 @@
-package imprintplus.method.model;
 
-public class MixtureModel {
-
-}
 package imprintplus.method.model;
 
 /**
