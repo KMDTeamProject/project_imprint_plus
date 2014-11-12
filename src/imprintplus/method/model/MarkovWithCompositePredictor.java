@@ -1,20 +1,12 @@
-package imprintplus.method.clustering;
-
-public class WekaClusterer {
-
-}
-
-package imprintplus.method.clustering;
-
+package imprintplus.method.model;
 
 /**
  * @author Sandhya
  *
  */
-public class WekaClusterer {
+public class MarkovWithCompositePredictor {
 
 	/**
-	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
