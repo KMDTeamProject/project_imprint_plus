@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -319,8 +320,13 @@ public class LongitudinalTable {
 	 * @return a Map of LongitudinalObject with key as their id
 	 */
 	public Map<String, LongitudinalObject> getBootstrapSampleOfPatients() {
-		return null;
-		// TODO Implement the method
+		HashMap< String, LongitudinalObject> map = new HashMap<String, LongitudinalObject>();
+		Iterator iterator = long_objs.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Map.Entry mapEntry = (Map.Entry) iterator.next();
+			map.put(mapEntry.getKey().toString(), (LongitudinalObject)mapEntry.getValue());
+		}
+		return map;		
 	}
 
 	/**
