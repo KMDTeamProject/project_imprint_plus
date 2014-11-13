@@ -1,15 +1,3 @@
-/**
- * 
- */
-package imprintplus.method.model;
-
-/**
- * @author carlo
- *
- */
-public class MarkovChain {
-
-}
 package imprintplus.method.model;
 
 /**

@@ -1,12 +1,5 @@
 package imprintplus.method.clustering;
 
-public class WekaClusterer {
-
-}
-
-package imprintplus.method.clustering;
-
-
 /**
  * @author Sandhya
  *
