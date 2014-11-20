@@ -6,6 +6,10 @@ import java.util.Map;
 
 import imprintplus.data.LongitudinalObject;
 
+/**
+ * @author SHAREEF
+ */
+
 
 public class UnitaryNGram extends AbstractUnitary {
 	@Override

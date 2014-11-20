@@ -7,6 +7,10 @@ import java.util.Map;
 import imprintplus.data.LongitudinalObject;
 import imprintplus.data.LongitudinalTable;
 
+/**
+ * @author SHAREEF
+ */
+
 public class CompositeNGram extends AbstractComposite {
 
 	/**
@@ -26,24 +30,6 @@ public class CompositeNGram extends AbstractComposite {
 		}
 	}
 
-	/**
-	 * Iterates over a Map of the LongitudinalObject and get the prediction for
-	 * each object one by one. The predicted values are returned as a Map<id,
-	 * predLabel>.
-	 * 
-	 * @param _objs
-	 * @return
-	 */
-	@Override
-	public Map<String, String> predict(Map<String, LongitudinalObject> _objs)
-			throws ImprintMethodMissingDataException {
-		Map<String, String> predicted = new HashMap<String, String>();
-		for (String id : _objs.keySet()) {
-			LongitudinalObject obj = _objs.get(id);
-			predicted.put(id, this.predict(obj));
-		}
-		return predicted;
-	}
 
 	@Override
 	public String predict(LongitudinalObject _obj)
