@@ -1,6 +1,5 @@
 package imprintplus.method.labelprediction;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,5 +41,14 @@ public class CompositeNGram extends AbstractComposite {
 			predicted.put(id, this.predict(obj));
 		}
 		return predicted;
+	}
+
+
+	//this function must be implemented but should not be used for Composite type
+	@Override
+	public String predict(LongitudinalObject _obj)
+			throws ImprintMethodMissingDataException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
