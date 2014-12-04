@@ -44,11 +44,11 @@ public class State<C> {
      *             if key or random is null
      */
     public State(C _key, Random _random) {
-        if (key == null) {
+        if (_key == null) {
             throw new IllegalArgumentException("key must not be null");
         }
 
-        if (random == null) {
+        if (_random == null) {
             throw new IllegalArgumentException("random must not be null");
         }
 
@@ -100,9 +100,9 @@ public class State<C> {
     }
 
     /**
-     * Returns one of the states in the defined transitions based on the
-     * probabilities. If the sum of probabilities for all transitions is less
-     * than 1, then the rest of the probability space will represent a
+     * Returns one of the states in the defined transitions based on the probabilities.
+     * If the sum of probabilities for all transitions is less than 1,
+     * then the rest of the probability space will represent a
      * transition back onto the same state.
      * 
      * @return a state from the transitions
