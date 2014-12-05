@@ -11,9 +11,6 @@ import imprintplus.experiment.ImprintExpException;
  */
 public class ImprintTransitionAlreadyDefinedException extends ImprintExpException {
 
-	/**
-	 * 
-	 */
 	 private static final long serialVersionUID = 1L;
 
 	    /**

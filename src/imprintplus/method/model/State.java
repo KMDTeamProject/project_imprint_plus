@@ -10,9 +10,11 @@ import java.util.Collection;
 
 /**
  * @author Sandhya
- *
+ * 
+ * Represents a state in a {@link MarkovChain}
  */
-public class State<C> {
+public class State<C> 
+{
 	
 	private C key;
 
@@ -23,13 +25,17 @@ public class State<C> {
     private double sum_of_probabilities = 0.0;
 
     /**
-     *       
+     * Constructs a {@code State}. Uses {@code new Random()}   
+     * for choosing transitions to take.
+     * 
      * @param key
      *            the key for the state
+     *            
      * @throws IllegalArgumentException
      *             if key is null
      */
-    public State(C _key) {
+    public State(C _key) 
+    {
         this(_key, new Random());
     }
 
@@ -43,13 +49,16 @@ public class State<C> {
      * @throws IllegalArgumentException
      *             if key or random is null
      */
-    public State(C _key, Random _random) {
-        if (_key == null) {
-            throw new IllegalArgumentException("key must not be null");
+    public State(C _key, Random _random) 
+    {
+        if (_key == null) 
+        {
+            throw new IllegalArgumentException("Key must not be null");
         }
 
-        if (_random == null) {
-            throw new IllegalArgumentException("random must not be null");
+        if (_random == null) 
+        {
+            throw new IllegalArgumentException("Random must not be null");
         }
 
         this.key = _key;
@@ -70,12 +79,15 @@ public class State<C> {
      *             if the probability is not between 0 and 1 inclusive or the
      *             sum of probabilities for all transitions exceeds 1
      */
-    public void addTransition(State<C> _otherstate, double _probability) throws ImprintTransitionAlreadyDefinedException {
-        if (_probability < 0.0 || _probability > 1.0) {
+    public void addTransition(State<C> _otherstate, double _probability) throws ImprintTransitionAlreadyDefinedException 
+    {
+        if (_probability < 0.0 || _probability > 1.0) 
+        {
             throw new IllegalArgumentException("probability must be between 0 and 1 inclusive");
         }
 
-        if (transitions.containsValue(_otherstate)) {
+        if (transitions.containsValue(_otherstate)) 
+        {
             throw new ImprintTransitionAlreadyDefinedException(String.format(
                     "Transition already defined from %s to %s", this.key.toString(),
                     _otherstate.toString()));
@@ -95,7 +107,8 @@ public class State<C> {
      * 
      * @return collection of transition states
      */
-    public Collection<State<C>> getTransitions() {
+    public Collection<State<C>> getTransitions() 
+    {
         return this.transitions.values();
     }
 
@@ -107,7 +120,8 @@ public class State<C> {
      * 
      * @return a state from the transitions
      */
-    public State<C> getNextState() {
+    public State<C> getNextState() 
+    {
         double rand = this.random.nextDouble();
 
         Entry<Double, State<C>> e = this.transitions.higherEntry(rand);
@@ -120,12 +134,14 @@ public class State<C> {
      * 
      * @return the key
      */
-    public C getKey() {
+    public C getKey() 
+    {
         return this.key;
     }
 
     @Override
-    public String toString() {
+    public String toString() 
+    {
         return this.key.toString();
     }
 }
