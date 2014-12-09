@@ -11,9 +11,26 @@ import imprintplus.data.LongitudinalObject;
 
 public class UnitaryNGram extends AbstractUnitary {
 
+	// default value n for nGram
 	private int n = 3;
+
 	// nGram variable that will contain the labels along with the
-	private Hashtable<String, Hashtable<String, Double>> nGram = new Hashtable<String, Hashtable<String, Double>>();
+	private Hashtable<String, Hashtable<String, Double>> nGram;
+
+	/**
+	 * default contractor
+	 */
+	public UnitaryNGram() {
+		nGram = new Hashtable<String, Hashtable<String, Double>>();
+	}
+
+	/**
+	 * normal contractor
+	 */
+	public UnitaryNGram(int n) {
+		nGram = new Hashtable<String, Hashtable<String, Double>>();
+		this.n = n;
+	}
 
 	@Override
 	/**
@@ -29,24 +46,29 @@ public class UnitaryNGram extends AbstractUnitary {
 
 		/* building the n-gram for the label series with n = 3 */
 		for (int i = 0; i <= l_series.size() - n; i++) {
-			if (nGram.containsKey(l_series.get(i) + " " + l_series.get(i + 1))) {
+			// n-Gram default value as startup
+			String temp = l_series.get(i);
 
-				if (nGram.get(l_series.get(i) + " " + l_series.get(i + 1))
-						.containsKey(l_series.get(i + 2))) {
-					double v = nGram.get(
-							l_series.get(i) + " " + l_series.get(i + 1)).get(
-							l_series.get(i + 2));
+			/*
+			 * for n value lager than 2: loop from the next value till the value
+			 * (n - 1) that has index [n-2]
+			 */
+			for (int j = i + 1; j < i + n - 2; j++) {
+				temp += " " + l_series.get(j);
+			}
+			// check if the nGram has the current value
+			if (nGram.containsKey(temp)) {
+				if (nGram.get(temp).contains(l_series.get(i + n - 1))) {
+					double v = nGram.get(temp).get(l_series.get(i + n - 1));
 					v++;
-					nGram.get(l_series.get(i) + " " + l_series.get(i + 1)).put(
-							l_series.get(i + 2), v);
+					nGram.get(temp).put(l_series.get(i + n - 1), v);
 				} else {
-					nGram.get(l_series.get(i) + " " + l_series.get(i + 1)).put(
-							l_series.get(i + 2), 1.0);
+					nGram.get(temp).put(l_series.get(i + n - 1), 1.0);
 				}
+				// if nGram doesn't have the value then add it to nGram
 			} else {
 
-				nGram.put(l_series.get(i) + " " + l_series.get(i + 1),
-						create(l_series.get(i + 2)));
+				nGram.put(temp, create(l_series.get(i + n - 1)));
 			}
 		}
 
@@ -79,6 +101,10 @@ public class UnitaryNGram extends AbstractUnitary {
 
 		return predicate_label;
 	}
+
+	/**
+	 * initiate new hash table based on the input string
+	 */
 
 	private Hashtable<String, Double> create(String s) {
 		Hashtable<String, Double> result = new Hashtable<String, Double>();
