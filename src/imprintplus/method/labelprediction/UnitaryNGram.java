@@ -44,7 +44,7 @@ public class UnitaryNGram extends AbstractUnitary {
 		/* Get the label series of the longitudinal object _obj. */
 		ArrayList<String> l_series = _obj.getLabelSeries();
 
-		/* building the n-gram for the label series with n = 3 */
+		/* building the n-gram for the label series */
 		for (int i = 0; i <= l_series.size() - n; i++) {
 			// n-Gram default value as startup
 			String temp = l_series.get(i);
