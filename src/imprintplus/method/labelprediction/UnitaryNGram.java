@@ -18,14 +18,14 @@ public class UnitaryNGram extends AbstractUnitary {
 	private Hashtable<String, Hashtable<String, Double>> nGram;
 
 	/**
-	 * default contractor
+	 * default constructor
 	 */
 	public UnitaryNGram() {
 		nGram = new Hashtable<String, Hashtable<String, Double>>();
 	}
 
 	/**
-	 * normal contractor
+	 * normal constructor
 	 */
 	public UnitaryNGram(int n) {
 		nGram = new Hashtable<String, Hashtable<String, Double>>();
