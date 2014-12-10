@@ -221,7 +221,7 @@ public class MarkovChain<C>
      * @throws IllegalArgumentException
      *             if {@code iter} is null
      * @return the generated {@code MarkovChain}
-	 * @throws ImprintStateAlreadyDefinedException 
+	 * @throws ImprintStateAlreadyDefinedException
 	 * @throws ImprintTransitionAlreadyDefinedException 
 	 * @throws ImprintStateNotDefinedException 
      */
