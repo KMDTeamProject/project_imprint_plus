@@ -1,11 +1,13 @@
 package imprintplus.method.model;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.Iterator;
 import java.util.Map.Entry;
+
 
 /**
  * 
@@ -224,8 +226,9 @@ public class MarkovChain<C>
 	 * @throws ImprintStateAlreadyDefinedException
 	 * @throws ImprintTransitionAlreadyDefinedException 
 	 * @throws ImprintStateNotDefinedException 
+	 * 
      */
-    public static MarkovChain<String> fromStrings(Iterator<String> iter) throws ImprintStateAlreadyDefinedException, ImprintStateNotDefinedException, ImprintTransitionAlreadyDefinedException 
+    public static MarkovChain<String> fromStrings(Iterator<String> iter) throws ImprintStateAlreadyDefinedException, ImprintStateNotDefinedException, ImprintTransitionAlreadyDefinedException
     {
         if (iter == null) 
         {
@@ -262,37 +265,33 @@ public class MarkovChain<C>
         }
 
         MarkovChain<String> mc = new MarkovChain<>();
+        
 
-        for (String strng : _occurrence_map.keySet()) 
-        {
-            if (!mc.containsState(strng)) 
+        for (String str : _occurrence_map.keySet()){
+            if (!mc.containsState(str)) 
             {
-                mc.addState(strng);
+                mc.addState(str);
             }
 
-            Map<String, Integer> occurrences = _occurrence_map.get(strng);
-           
-            int sum_occurrences = Integer.valueOf(strng);
-           
-            /* for(String s : occurrences.values()){
-            	            	sum_occurrences += Integer.parseInt(strng);
-               }*/
-            
-            for (int count = 0; count < occurrences.size()-1; count++){
-            	sum_occurrences += Integer.parseInt(strng);
-            }
-            
-            for (Entry<String, Integer> entry : occurrences.entrySet()) 
-            {
+            Map<String, Integer> occurrences = _occurrence_map.get(str);
+            int sum_occurrences = getNumberOfOccurance(occurrences.keySet(), str);
+                        
+            for (Entry<String, Integer> entry : occurrences.entrySet()){
                 if (!mc.containsState(entry.getKey())) 
                 {
                     mc.addState(entry.getKey());
                 }
 
-                mc.addTransition(strng, entry.getKey(), entry.getValue() / (double) sum_occurrences);
+                mc.addTransition(str, entry.getKey(), entry.getValue() / (double) sum_occurrences);
             }
         }
 
         return mc;
-    }    
+    }   
+
+public static int getNumberOfOccurance(Set<String> arralist, String str){
+    int occurrences = 0;
+    occurrences = Collections.frequency(arralist, str);
+    return occurrences; 
+}
 }
