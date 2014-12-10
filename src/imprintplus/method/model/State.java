@@ -12,6 +12,7 @@ import java.util.Collection;
  * @author Sandhya
  * 
  * Represents a state in a {@link MarkovChain}
+ * 
  */
 public class State<C> 
 {

@@ -65,4 +65,5 @@ public class KMean {
 		// TODO IMplement the function
 		return sse;
 	}
+	
 }
