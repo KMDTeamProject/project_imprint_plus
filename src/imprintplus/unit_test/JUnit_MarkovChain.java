@@ -160,27 +160,37 @@ public class JUnit_MarkovChain {
 	     * @throws ImprintTransitionAlreadyDefinedException 
 	     * @throws ImprintStateNotDefinedException 
 	     */
-	    @Test(expected = IllegalArgumentException.class)
+	    @Test
 	    public void nullFromTransition() throws ImprintStateAlreadyDefinedException, ImprintStateNotDefinedException, ImprintTransitionAlreadyDefinedException {
 	        markovChain.addState("s1");
 	        markovChain.addState("s2");
 	        try {
 		        markovChain.addTransition(null, "s1", 0.5);
-		        fail("Was expecting ImprintStateNotDefinedException.");
-	        } catch (ImprintStateNotDefinedException e) {
+		        fail("Was expecting IllegalArgumentException.");
+	        } catch (IllegalArgumentException e) {
 	        	assertTrue(true);
 	        } catch (Exception e) {
-		        fail("Was expecting ImprintStateNotDefinedException.");	        	
+		        fail("Was expecting IllegalArgumentException.");	        	
 	        }
 	        
 	        try {
 		        markovChain.addTransition("s1", null, 0.5);
-		        fail("Was expecting ImprintStateNotDefinedException.");
-	        } catch (ImprintStateNotDefinedException e) {
+		        fail("Was expecting IllegalArgumentException.");
+	        } catch (IllegalArgumentException e) {
 	        	assertTrue(true);
 	        } catch (Exception e) {
-		        fail("Was expecting ImprintStateNotDefinedException.");	        	
+		        fail("Was expecting IllegalArgumentException.");	        	
 	        } 
+	        
+	        try {
+		        markovChain.addTransition("s1", "s2", 1.5);
+		        fail("Was expecting IllegalArgumentException.");
+	        } catch (IllegalArgumentException e) {
+	        	assertTrue(true);
+	        } catch (Exception e) {
+		        fail("Was expecting IllegalArgumentException.");	        	
+	        } 
+
 	    }
 
 	    /**
