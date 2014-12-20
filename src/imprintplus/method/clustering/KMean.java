@@ -14,14 +14,20 @@ public class KMean {
 	static final int MAX_RUNS = 10;
 	static final int MAX_ITERATIONS = 100;
 	
-	
-	Integer K = 5;
+	int K;
+	AbstractDistance distance;
 
 
-	public KMean(int _K) {
+	protected KMean(int _K) {
 		K = _K;
+		distance = new EuclideanDistance();
 	}
 	
+	public KMean(int _K, AbstractDistance _distance) {
+		this(_K);
+		distance = _distance;
+	}
+
 	public ClusteringModel doClustering(Map<String, Double[]> _inst_map) {
 		// Randomly initialise K Clusters using the provided instances map
 		ArrayList<String> inst_ids = new ArrayList<String>();
