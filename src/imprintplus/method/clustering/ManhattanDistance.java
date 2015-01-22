@@ -1,6 +1,6 @@
 package imprintplus.method.clustering;
 
-public class ManhattanDistance implements AbstractDistance {
+public class ManhattanDistance extends AbstractDistance {
 
 	@Override
 	public double calculateDistance(double[] x, double[] y) {

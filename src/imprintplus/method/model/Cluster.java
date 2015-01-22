@@ -32,24 +32,26 @@ public class Cluster {
 		inst_ids = new ArrayList<String>();
 	}
 	
+	//get cluster id
 	public int getClusterId() {
 		return clus_id;
 	}
 	
+	//get centroid
 	public Double[] getCentroid() {
 		return centroid;
 	}
 
+	// add ids to the list of instances ids
 	public void addInstanceId(String _inst_id) {
 		inst_ids.add(_inst_id);
 	}
 
+	//update centroids
 	public void updateCentroid(Map<String, Double[]> _obj_map) {
-		int count = _obj_map.size();
-
+		int count = inst_ids.size();
 		centroid = new Double[centroid.length];
-
-		for (String id : _obj_map.keySet()) {
+		for (String id : inst_ids) {
 			Double[] inst = _obj_map.get(id);
 			for (int i = 0; i < centroid.length; i++)
 				centroid[i] += (inst[i] / count);

@@ -11,7 +11,7 @@ public class ClusteringModel {
 		K=_K;
 		clusters = new ArrayList<Cluster>();
 	}
-	
+	// get cluster id
 	public Cluster getClusterWithId(int _clus_id) {
 		return clusters.get(_clus_id);
 	}

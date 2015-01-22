@@ -1,6 +1,6 @@
 package imprintplus.method.clustering;
 
-public class EuclideanDistance implements AbstractDistance {
+public class EuclideanDistance extends AbstractDistance {
 
 	@Override
 	public double calculateDistance(double[] x, double[] y) {
