@@ -1,24 +1,19 @@
 package imprintplus.method.labelprediction;
 
+import imprintplus.data.LongitudinalObject;
+import imprintplus.data.LongitudinalTable;
+import imprintplus.method.model.ImprintStateAlreadyDefinedException;
+import imprintplus.method.model.ImprintStateNotDefinedException;
+import imprintplus.method.model.ImprintTransitionAlreadyDefinedException;
+import imprintplus.method.model.MarkovChain;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import imprintplus.data.LongitudinalObject;
-import imprintplus.data.LongitudinalTable;
+public class CompositeMarkovChain extends AbstractComposite {
 
-/**
- * @author SHAREEF
- */
-
-public class CompositeNGram extends AbstractComposite {
-
-	private int n;
-	private NGram[] nGram;
-
-	public CompositeNGram(int n) {
-		this.n = n;
-	}
+	private MarkovChain<String>[] markovChain;
 
 	/**
 	 * This method learns a prediction model from a LongitudinalTable. This must
@@ -49,40 +44,32 @@ public class CompositeNGram extends AbstractComposite {
 		Map<String, String> predictedValues = new HashMap<String, String>();
 
 		// initialize the NGram Array
-		nGram = new NGram[_objs.size()];
+		markovChain = new MarkovChain[_objs.size()];
 
 		int counter = 0;
 		for (String id : _objs.keySet()) {
-			nGram[counter] = new NGram(this.n);
+			markovChain[counter] = new MarkovChain<String>();
 			LongitudinalObject obj = _objs.get(id);
 
 			/* Get the label series of the longitudinal object _obj. */
 			ArrayList<String> l_series = obj.getLabelSeries();
 
-			// build the nGram of the longitudinal object
-			nGram[counter].fillnGram(l_series);
+			try {
 
-			/*
-			 * Get the index and then the last n-label
-			 */
-			int last_label_index = l_series.size() - n - 1;
-			String last_label = "";
-			
-			if(last_label_index > 0 )
-				last_label = l_series.get(last_label_index);
-			else
-				last_label = l_series.get(l_series.size()-1);
+				markovChain[counter] = MarkovChain.fromStrings(l_series
+						.iterator());
+				predictedValues.put(id, markovChain[counter].generate());
 
-			/*
-			 * Search the nGram for the label with the best confidence while
-			 * current label is same as last n-label
-			 */
-
-			String predicate_label = nGram[counter]
-					.getPredicateLabel(last_label);
-
-			predictedValues.put(id, predicate_label);
-			counter++;
+			} catch (ImprintStateAlreadyDefinedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ImprintStateNotDefinedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ImprintTransitionAlreadyDefinedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return predictedValues;
 	}
