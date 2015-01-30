@@ -1,13 +1,14 @@
+/**
+ * 
+ * @author carlo,Raj
+ *
+ */
 package imprintplus.method.model;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-/**
- * 
- * @author carlo
- *
- */
+
 public class Cluster {
 	
 	private static int CLUSTER_COUNT = 0;

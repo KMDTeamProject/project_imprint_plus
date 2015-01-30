@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author carlo,Raj
+ *
+ */
 package imprintplus.method.clustering;
 
 import java.util.Map;
@@ -12,8 +17,6 @@ public class KMean {
 	static final int MAX_ITERATIONS = 100;
 
 	int K; // number of clusters
-	int Y; // number of dimensions
-	int Z; // number of data points
 	AbstractDistance distance;
 
 	public KMean(int _K) {
@@ -46,7 +49,7 @@ public class KMean {
 			}
 
 
-			// Calling EuclideanDistance CLass
+			// Iterate until reaching Stability or Maximum Iterations
 			for (int itr = 0; itr < KMean.MAX_ITERATIONS; itr++) {
 
 				// Finding Closest Center
@@ -79,7 +82,7 @@ public class KMean {
 	/**
 	 * finding closest cluster
 	 */
-	private int FindClosestCluster(ClusteringModel _mdl, Double[] _instance) {
+	public int FindClosestCluster(ClusteringModel _mdl, Double[] _instance) {
 		int closestCenter = -1;
 		double closestDistance = -1;
 		for (int i = 0; i < K; i++) {
@@ -93,7 +96,7 @@ public class KMean {
 		return closestCenter;
 	}
 
-	protected Double computeSSE(ClusteringModel _model,
+	public Double computeSSE(ClusteringModel _model,
 			Map<String, Double[]> _inst_map) {
 		Double sse = 0.0;
 		// TODO IMplement the function

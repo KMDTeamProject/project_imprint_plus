@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author carlo,Raj
+ *
+ */
 package imprintplus.method.clustering;
 
 public class ManhattanDistance extends AbstractDistance {
