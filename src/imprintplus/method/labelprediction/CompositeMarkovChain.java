@@ -58,7 +58,7 @@ public class CompositeMarkovChain extends AbstractComposite {
 
 				markovChain[counter] = MarkovChain.fromStrings(l_series
 						.iterator());
-				predictedValues.put(id, markovChain[counter].generate());
+				predictedValues.put(id, MarkovChain.generate(markovChain[counter]));
 
 			} catch (ImprintStateAlreadyDefinedException e) {
 				// TODO Auto-generated catch block

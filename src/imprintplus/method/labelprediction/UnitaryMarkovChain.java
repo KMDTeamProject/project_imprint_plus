@@ -29,7 +29,7 @@ public class UnitaryMarkovChain extends AbstractUnitary {
 		try {
 
 			markovChain = MarkovChain.fromStrings(l_series.iterator());
-			return markovChain.generate();
+			return MarkovChain.generate(markovChain);
 
 		} catch (ImprintStateAlreadyDefinedException e) {
 			// TODO Auto-generated catch block
