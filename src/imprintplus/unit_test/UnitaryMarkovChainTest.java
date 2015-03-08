@@ -37,11 +37,9 @@ public class UnitaryMarkovChainTest {
 		try {
 			assertEquals("predicate is okay", "third",
 					unitaryMarkovChain.predict(long_obj));
-			// fail("Not yet implemented");
 		} catch (Exception e) {
 			assertTrue(true);
 
 		}
-
 	}
 }
