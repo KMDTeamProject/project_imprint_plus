@@ -22,7 +22,7 @@ public class UnitaryModeTest {
 		long_obj.addLabel("first", 1);
 		long_obj.addLabel("second", 4);
 		long_obj.addLabel("third", 3);
-		long_obj.addLabel("fourth", 4);
+		long_obj.addLabel("first", 4);
 	}
 
 	/*
@@ -36,7 +36,7 @@ public class UnitaryModeTest {
 	public void testPredict() {
 		UnitaryMode unitaryMode = new UnitaryMode();
 		try {
-			assertEquals("predicate is okay", "first_second",
+			assertEquals("predicate is okay", "first",
 					unitaryMode.predict(long_obj));
 			// fail("Not yet implemented");
 		} catch (Exception e) {
