@@ -16,7 +16,7 @@ public class UnitaryMarkovChain extends AbstractUnitary {
 
 	/**
 	 * Unitary predictor doesn't learn a model. When a LongitudinalObject is
-	 * provided to them, they learn the model on the fly and do the prediction.
+	 * provided to them, they learn the model  on the fly and do the prediction.
 	 * The learning is also encapsulated inside this method.
 	 */
 	@Override
